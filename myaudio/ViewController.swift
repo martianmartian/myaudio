@@ -9,16 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
+    // addition is web front only
+    // removal is mobile only
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        //print(Models.fetchAllX(entity:"Album"))
+        //print(Models.fetchAllX(entity:"Item"))
+        
+        HttpReq.getFile(obj:["code":"825" as AnyObject]){data in
+            Models.updateAll(data:data)
+            
+        }
+        //Albums.createAlbum(albumname:"dodo",albumid: "wlekwrjweklr")
+        
+        
     }
+    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
 }
