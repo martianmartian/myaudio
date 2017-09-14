@@ -8,9 +8,6 @@
 
 import UIKit
 
-var albums = Albums()
-var items = Items()
-
 class ViewController: UIViewController {
     // addition is web front only
     // removal is mobile only
@@ -18,13 +15,14 @@ class ViewController: UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         
-////        Models.removeAll()
-//        HttpReq.getFile(obj:["code":"825" as AnyObject]){data in
-////            print(albums.content)
-////            print(data)
-////            albums.updateAll(data:data["albums"] as! [AnyObject])
-////            items.updateAll(data:data["items"] as! [AnyObject])
-//        }
+        //Models.removeAllX(entity: "albums")
+        HttpReq.getFile(obj:["code":"825" as AnyObject]){data in
+            
+            Models.updateAllX(data:data["albums"] as! [AnyObject],entity:"albums")
+            Models.updateAllX(data:data["items"] as! [AnyObject],entity:"items")
+//            Albums.shared.updateAllX(data:data["albums"] as! [AnyObject],entity:"albums")
+//            Items.shared.updateAllX(data:data["items"] as! [AnyObject],entity:"items")
+        }
         
     }
     

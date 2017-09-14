@@ -12,17 +12,14 @@ import CoreData
 
 class Models{
     
-    static func newEntityIntoCoreData(entity:String, addContents:@escaping (_ : Any)->()){
-        // takes in a closure, which exposes the created new entity.
-        
-        guard mp3.Entities.contains(entity) else {return}
-        let newEntity = NSEntityDescription.insertNewObject(forEntityName: entity, into: mp3.context as! NSManagedObjectContext)
-        
-        addContents(newEntity) // closure callback
-        
-        do{try mp3.context.save();print("saved")}
-        catch{print(error)}
+    var Keys:[String]=[] //needs update
+    var db:AnyObject
+    
+    init(){
+        Keys = ["albums", "items"]
+        db = UserDefaults.standard
     }
+    static let shared = Models()
     
     static func updateEntity(category:String){
         // mobile side only removes content, no need for "new album" etc.
@@ -32,53 +29,61 @@ class Models{
     static func removeXofEntity(){
         //context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
     }
-    
 
     static func fetchItemById(){
         
         
     }
-
-
     
 }
 
 
 extension Models{
-    static func fetchAllX(entity:String) -> Array<Any>{
-        // Fetch all that belongs to type X
-        
-        var results=[Any]()
-        
-        if mp3.Entities.contains(entity)==false{return []}
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName:entity)
-        request.returnsObjectsAsFaults=false
-        
-        do{
-            results = try mp3.context.fetch(request)
-            print("found ",results.count, entity)
-        }catch{}
-        
-        return results
-    }
-    static func removeAll(){
-        // mascer, be carefull.
-        //Models.removeAll()
-        for entity in mp3.Entities{
-            let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-            do
-            {
-                let _ = try mp3.context.execute(deleteRequest)
-                try mp3.context.save()
+    
+    static func updateAllX(data:[AnyObject],entity:String){
+        var arr = [AnyObject]()
+        for one in data{
+            var eachdic = [String:AnyObject]()
+            for (key, val) in one as! NSDictionary{
+                if type(of: val) == NSNull.self {continue}
+                eachdic[key as! String] = val as AnyObject
             }
-            catch
-            {
-                print ("There was an error")
+            eachdic["createdAt"] = NSDate()
+            
+            arr.append(eachdic as AnyObject)
+        }
+        //print(arr)
+        Models.shared.db.set(arr, forKey:entity)
+        //print(Models.fetchAllX(entity: entity) as [AnyObject])
+    }
+
+    static func pluck(data:[Any], key:String)->[String]{
+        var arr = [String]()
+        if data.count>0{
+            for al in data{
+                let al = al as AnyObject
+                arr.append(al.value(forKey:key) as! String)
             }
         }
-        print(fetchAllX(entity:"Album"))
+        return arr
+    }
+    
+    static func fetchAllX(entity:String) -> Array<Any>{
+        // Fetch all that belongs to type X
+        if Models.shared.Keys.contains(entity)==false{return []}
+        
+        guard let stuff = Models.shared.db.value(forKey: entity) else { return []} // nil if empty
+        
+        return stuff as! [AnyObject]
+    }
+    
+    static func removeAllX(entity:String){
+        // mascer, be carefull.
+        if Models.shared.Keys.contains(entity)==false{return}
+        
+        Models.shared.db.removeObject(forKey:entity)
+        
+        print(fetchAllX(entity:entity))
     }
 
 }

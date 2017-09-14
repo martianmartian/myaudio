@@ -8,37 +8,18 @@
 
 import Foundation
 
-class Albums:Models{
+class Albums{
     var content = [Any]()
-    var name="Album"
-    var albumIds=[String]()
+    var entity="albums"
+    var jsonkey = "albumid"
+    var ids=[String]()
     
-    override init(){
-        print("content is here-=-----------")
-//        content = Models.fetchAllX(entity:name)
-//        for al in content{
-//            let al = al as AnyObject
-//            albumIds.append(al.value(forKey:"albumid") as! String)
-//        }
-        
+    init(){
+        content = Models.fetchAllX(entity:entity)
+        ids = Models.pluck(data: content, key:jsonkey)
     }
+    static var shared = Albums()
 
-    func updateAll(data:[AnyObject]){
-//        for one in data{
-//            let key = one.value(forKey: "albumid") as! String
-//            if albumIds.contains(key) {return}
-//            
-//            Models.newEntityIntoCoreData(entity:name){newAlbum in
-//                let newAlbum = newAlbum as AnyObject
-//                
-//                newAlbum.setValue(one["albumid"] as! String, forKey: "albumid")
-//                newAlbum.setValue(one["albumname"] as! String, forKey: "albumname")
-//                newAlbum.setValue(NSDate(), forKey: "createdAt")
-//                print("new one here: \(key)")
-//                print(newAlbum)
-//            }
-//        }
-    }
 
 
 }
