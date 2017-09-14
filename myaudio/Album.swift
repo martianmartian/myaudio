@@ -8,26 +8,37 @@
 
 import Foundation
 
-class Albums{
-    static var content = [Any]()
+class Albums:Models{
+    var content = [Any]()
+    var name="Album"
+    var albumIds=[String]()
     
-    static func createAlbum(albumname:String,albumid:String){
-        Models.newEntity(entity: "Album"){ newAlbum in
-            //print("here's the callback passed into the newEntity")
-            
-            let newAlbum = newAlbum as AnyObject
-            
-            newAlbum.setValue(albumname, forKey: "albumname")
-            newAlbum.setValue(Util.randomString(length: 10),forKey:"albumid")
-            newAlbum.setValue(Date(), forKey: "createdAt")
-            newAlbum.setValue(1, forKey: "priority")
-            newAlbum.setValue(0, forKey: "numItems")
-            newAlbum.setValue("", forKey: "imgurl")
-            
-        }
+    override init(){
+        print("content is here-=-----------")
+//        content = Models.fetchAllX(entity:name)
+//        for al in content{
+//            let al = al as AnyObject
+//            albumIds.append(al.value(forKey:"albumid") as! String)
+//        }
         
     }
-    static func updateAlbums(){
-        
+
+    func updateAll(data:[AnyObject]){
+//        for one in data{
+//            let key = one.value(forKey: "albumid") as! String
+//            if albumIds.contains(key) {return}
+//            
+//            Models.newEntityIntoCoreData(entity:name){newAlbum in
+//                let newAlbum = newAlbum as AnyObject
+//                
+//                newAlbum.setValue(one["albumid"] as! String, forKey: "albumid")
+//                newAlbum.setValue(one["albumname"] as! String, forKey: "albumname")
+//                newAlbum.setValue(NSDate(), forKey: "createdAt")
+//                print("new one here: \(key)")
+//                print(newAlbum)
+//            }
+//        }
     }
+
+
 }
