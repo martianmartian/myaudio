@@ -21,16 +21,7 @@ class Models{
     }
     static let shared = Models()
     
-    static func updateEntity(category:String){
-        // mobile side only removes content, no need for "new album" etc.
-        // instead always update these data is easier.
-    }
-    
-    static func removeXofEntity(){
-        //context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
-    }
-
-    static func fetchItemById(){
+    static func fetchXById(){
         
         
     }
@@ -40,20 +31,26 @@ class Models{
 
 extension Models{
     
-    static func updateAllX(data:[AnyObject],entity:String){
-        var arr = [AnyObject]()
+    static func updateAllX(data:[AnyObject],entity:String,ifDup:(_ dic:AnyObject)->Bool){
+        
+        //putting new stuff in.
+        var arrOfDic = [AnyObject]()
         for one in data{
             var eachdic = [String:AnyObject]()
+            
+            //check for duplicates
+            if ifDup(one as AnyObject) {continue}
+            
             for (key, val) in one as! NSDictionary{
                 if type(of: val) == NSNull.self {continue}
                 eachdic[key as! String] = val as AnyObject
             }
             eachdic["createdAt"] = NSDate()
             
-            arr.append(eachdic as AnyObject)
+            arrOfDic.append(eachdic as AnyObject)
         }
         //print(arr)
-        Models.shared.db.set(arr, forKey:entity)
+        Models.shared.db.set(arrOfDic, forKey:entity)
         //print(Models.fetchAllX(entity: entity) as [AnyObject])
     }
 

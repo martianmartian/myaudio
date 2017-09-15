@@ -20,6 +20,15 @@ class Items{
     }
     static var shared = Items()
     
+    func updateAll(data:[AnyObject]){
+        
+        Models.updateAllX(data:data, entity:entity){dic in // check for dups
+            let dic = dic as! NSDictionary
+            let id = dic[jsonkey] as! String
+            return ids.contains(id)
+        }
+    }
+
 
 
 }
