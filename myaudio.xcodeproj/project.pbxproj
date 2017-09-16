@@ -62,6 +62,13 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		435B21BF1F6B6D60008D73A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		43A658351F5648BC009D9BE9 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +88,7 @@
 		43A658401F5648BC009D9BE9 /* myaudio */ = {
 			isa = PBXGroup;
 			children = (
+				435B21BF1F6B6D60008D73A2 /* View */,
 				43A658411F5648BC009D9BE9 /* AppDelegate.swift */,
 				43A658431F5648BC009D9BE9 /* ViewController.swift */,
 				433783141F662AE500C0718D /* Model */,

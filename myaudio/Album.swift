@@ -15,14 +15,14 @@ class Albums{
     var ids=[String]()
     
     init(){
-        content = Models.fetchAllX(entity:entity)
+        content = Models.fetchAllXdb(entity:entity)
         ids = Models.pluck(data: content, key:jsonkey)
     }
     static var shared = Albums()
 
     func updateAll(data:[AnyObject]){
         
-        Models.updateAllX(data:data, entity:entity){dic in // check for dups
+        Models.updateAllXdb(data:data, entity:entity){dic in // check for dups
             let dic = dic as! NSDictionary
             let id = dic[jsonkey] as! String
             return ids.contains(id)

@@ -31,7 +31,7 @@ class Models{
 
 extension Models{
     
-    static func updateAllX(data:[AnyObject],entity:String,ifDup:(_ dic:AnyObject)->Bool){
+    static func updateAllXdb(data:[AnyObject],entity:String,ifDup:(_ dic:AnyObject)->Bool){
         
         //putting new stuff in.
         var arrOfDic = [AnyObject]()
@@ -45,7 +45,7 @@ extension Models{
                 if type(of: val) == NSNull.self {continue}
                 eachdic[key as! String] = val as AnyObject
             }
-            eachdic["createdAt"] = NSDate()
+            eachdic["createdAt"] = NSDate()// back end has a different "createdAt" time, it's ok.
             
             arrOfDic.append(eachdic as AnyObject)
         }
@@ -65,13 +65,13 @@ extension Models{
         return arr
     }
     
-    static func fetchAllX(entity:String) -> Array<Any>{
+    static func fetchAllXdb(entity:String) -> [Dictionary<String, AnyObject>]{
         // Fetch all that belongs to type X
         if Models.shared.Keys.contains(entity)==false{return []}
         
         guard let stuff = Models.shared.db.value(forKey: entity) else { return []} // nil if empty
         
-        return stuff as! [AnyObject]
+        return stuff as! [Dictionary<String, AnyObject>]
     }
     
     static func removeAllX(entity:String){
@@ -80,7 +80,7 @@ extension Models{
         
         Models.shared.db.removeObject(forKey:entity)
         
-        print(fetchAllX(entity:entity))
+        print(fetchAllXdb(entity:entity))
     }
 
 }

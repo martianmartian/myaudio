@@ -9,26 +9,57 @@
 import Foundation
 
 class Items{
-    var content = [Any]()
+    
     var entity="items"
     var jsonkey = "itemId"
     var ids=[String]()
+
+    var content = [Dictionary<String, AnyObject>](){
+        didSet{
+            print("hoho----")
+            //Part1: save json files in userdefault //when inited, this part won't be triggered
+            Models.updateAllXdb(data:content as [AnyObject], entity:entity){dic in // check for dups
+                let dic = dic as! NSDictionary
+                let id = dic[jsonkey] as! String
+                return ids.contains(id)
+            }
+
+            //Par2: update ids
+            ids = Models.pluck(data: content, key:jsonkey)
+            
+            //Part3:  update view if controller used
+                //conditional on whether the view has anything changed, or if just database saving
+        }
+    }
     
     init(){
-        content = Models.fetchAllX(entity:entity)
-        ids = Models.pluck(data: content, key:jsonkey)
+        content = Models.fetchAllXdb(entity: entity)
+        
     }
     static var shared = Items()
     
     func updateAll(data:[AnyObject]){
         
-        Models.updateAllX(data:data, entity:entity){dic in // check for dups
-            let dic = dic as! NSDictionary
-            let id = dic[jsonkey] as! String
-            return ids.contains(id)
+        //Part1: synch with class content
+        content = data as! [Dictionary<String, AnyObject>]
+
+        for (i,item) in content.enumerated(){
+            var each = item
+            let ifNew = each["newOrNot"] as! String
+            if ifNew == "0" {return}
+            HttpReq.getMP3(id: each["itemId"] as! String){localURL in
+                each["resourceAddr"] = localURL.absoluteString as AnyObject
+                self.content[i] = each
+            }
         }
+
     }
-
-
+    
 
 }
+
+
+
+
+
+
