@@ -202,6 +202,37 @@ import Foundation
 
 
 
+class A{
+    static var arr=[["a":"b","b":"c"],["a":"c"]]
+    static var shared = A()
+    init(){
+        print("doing something")
+    }
+    var content = [Dictionary<String, AnyObject>]()
+}
+
+//var a = A()
+//var dic = ["a":"c"]
+//print(a.arr[0])
+//a.arr[0] = dic
+//print(a.arr)
+//
+print("wwww")
+print(A.arr)
+//print(A.shared)
+print(A.shared.content)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -70,6 +70,8 @@ extension Models{
         if Models.shared.Keys.contains(entity)==false{return []}
         
         guard let stuff = Models.shared.db.value(forKey: entity) else { return []} // nil if empty
+        //let stuff = Models.shared.db.value(forKey: entity)
+        print("Models.fetchAllXdb: ",stuff as Any)
         
         return stuff as! [Dictionary<String, AnyObject>]
     }

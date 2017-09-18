@@ -34,14 +34,16 @@ class Items{
     
     init(){
         content = Models.fetchAllXdb(entity: entity)
-        
+
     }
     static var shared = Items()
     
     func updateAll(data:[AnyObject]){
-        
+
         //Part1: synch with class content
         content = data as! [Dictionary<String, AnyObject>]
+        // pre-download synch
+        //print(content)
 
         for (i,item) in content.enumerated(){
             var each = item
@@ -49,7 +51,15 @@ class Items{
             if ifNew == "0" {return}
             HttpReq.getMP3(id: each["itemId"] as! String){localURL in
                 each["resourceAddr"] = localURL.absoluteString as AnyObject
+                each["newOrNot"]="0" as AnyObject
                 self.content[i] = each
+                
+                // potentially failed setting net contents. be aware
+//                print(self.content[i])
+//                print("----------=-=-=-")
+//                print(self.content[i])
+//                print("=-=-=-----------")
+//                print(self.content)
             }
         }
 
