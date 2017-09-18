@@ -18,7 +18,7 @@ class Albums{
         content = Models.fetchAllXdb(entity:entity)
         ids = Models.pluck(data: content, key:jsonkey)
     }
-    static var shared = Albums()
+    //static var shared = Albums()
 
     func updateAll(data:[AnyObject]){
         
