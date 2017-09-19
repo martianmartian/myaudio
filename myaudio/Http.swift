@@ -48,7 +48,7 @@ class HttpReq{
         let request = URLRequest.config(config:config as [String : AnyObject])
         
         URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,res,err)-> Void in
-            if err != nil{return}
+            if err != nil{print("returned nil from HttpReq.getFile server request");return}
             do {
                 let result = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
                 then(result as AnyObject)

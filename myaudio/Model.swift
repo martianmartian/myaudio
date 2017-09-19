@@ -12,46 +12,35 @@ import CoreData
 
 class Models{
     
-    var Keys:[String]=[] //needs update
-    var db:AnyObject
-    
-    init(){
-        Keys = ["albums", "items"]
-        db = UserDefaults.standard
-    }
-    static let shared = Models()
-    
-    static func fetchXById(){
-        
-        
-    }
+    static var db = UserDefaults.standard
     
 }
 
 
 extension Models{
     
-    static func updateAllXdb(data:[AnyObject],entity:String,ifDup:(_ dic:AnyObject)->Bool){
+    static func fetchXById(){
+        
+        
+    }
+
+    static func updateAllXdb(data:[Dictionary<String, AnyObject>],entity:String,ifDup:(_ dic:Dictionary<String, AnyObject>)->Bool){
+        // is this synch or asynch????????????
         
         //putting new stuff in.
-        var arrOfDic = [AnyObject]()
+        var arrOfDic = [Dictionary<String, AnyObject>]()
         for one in data{
-            var eachdic = [String:AnyObject]()
+            var eachdic = one
             
-            //check for duplicates
-            if ifDup(one as AnyObject) {continue}
+            if ifDup(one) {continue}
             
-            for (key, val) in one as! NSDictionary{
-                if type(of: val) == NSNull.self {continue}
-                eachdic[key as! String] = val as AnyObject
-            }
-            eachdic["createdAt"] = NSDate()// back end has a different "createdAt" time, it's ok.
-            
-            arrOfDic.append(eachdic as AnyObject)
+            eachdic["createdAt"] = NSDate()
+
+            arrOfDic.append(eachdic)
         }
-        //print(arr)
-        Models.shared.db.set(arrOfDic, forKey:entity)
-        //print(Models.fetchAllX(entity: entity) as [AnyObject])
+        //print("arrOfDic is being saved, from updateAllXdb",arrOfDic)
+        Models.db.set(arrOfDic, forKey:entity)
+
     }
 
     static func pluck(data:[Any], key:String)->[String]{
@@ -66,23 +55,19 @@ extension Models{
     }
     
     static func fetchAllXdb(entity:String) -> [Dictionary<String, AnyObject>]{
-        // Fetch all that belongs to type X
-        if Models.shared.Keys.contains(entity)==false{return []}
         
-        guard let stuff = Models.shared.db.value(forKey: entity) else { return []} // nil if empty
-        //let stuff = Models.shared.db.value(forKey: entity)
-        //print("Models.fetchAllXdb: ",stuff as Any)
+        guard let stuff = Models.db.value(forKey: entity)
+            else {print("fetchAllXdb went wrong x-x-x"); return [Dictionary<String, AnyObject>]()} // nil if empty
         
         return stuff as! [Dictionary<String, AnyObject>]
     }
     
     static func removeAllX(entity:String){
         // mascer, be carefull.
-        if Models.shared.Keys.contains(entity)==false{return}
         
-        Models.shared.db.removeObject(forKey:entity)
+        Models.db.removeObject(forKey:entity)
+        print("after removing all \(entity), Models.fetchAllXdb(entity:entity) shows: ", Models.fetchAllXdb(entity:entity))
         
-        print(fetchAllXdb(entity:entity))
     }
 
 }

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -86,19 +85,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I31-kq-ALc">
+                                <rect key="frame" x="10" y="28" width="300" height="452"/>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Agm-eN-52W">
-                                <rect key="frame" x="16" y="28" width="288" height="452"/>
+                                <rect key="frame" x="10" y="28" width="300" height="452"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" id="yf8-zC-scG" customClass="itemCell" customModule="myaudio" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="288" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="300" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yf8-zC-scG" id="hwj-wM-sAq">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Everything is awesome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTj-Jf-epz">
-                                                    <rect key="frame" x="37" y="11" width="175" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Everything is awesome" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTj-Jf-epz">
+                                                    <rect key="frame" x="21" y="11" width="175" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -120,10 +122,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Agm-eN-52W" firstAttribute="leading" secondItem="1dR-8G-Upl" secondAttribute="leadingMargin" id="7Wk-O1-SGO"/>
-                            <constraint firstItem="Agm-eN-52W" firstAttribute="trailing" secondItem="1dR-8G-Upl" secondAttribute="trailingMargin" id="9Td-yN-MlO"/>
-                            <constraint firstItem="Agm-eN-52W" firstAttribute="top" secondItem="ZQa-hU-jRJ" secondAttribute="bottom" constant="8" id="VFR-kl-QUk"/>
-                            <constraint firstItem="8r8-MX-iSR" firstAttribute="top" secondItem="Agm-eN-52W" secondAttribute="bottom" id="dPC-zl-44m"/>
+                            <constraint firstItem="I31-kq-ALc" firstAttribute="leading" secondItem="1dR-8G-Upl" secondAttribute="leading" constant="10" id="Hq6-wH-O8v"/>
+                            <constraint firstItem="Agm-eN-52W" firstAttribute="top" secondItem="ZQa-hU-jRJ" secondAttribute="bottom" constant="8" id="LIh-wf-h6Z"/>
+                            <constraint firstAttribute="trailing" secondItem="I31-kq-ALc" secondAttribute="trailing" constant="10" id="MZz-dk-8IZ"/>
+                            <constraint firstItem="8r8-MX-iSR" firstAttribute="top" secondItem="Agm-eN-52W" secondAttribute="bottom" id="n9Q-GO-eXv"/>
+                            <constraint firstItem="8r8-MX-iSR" firstAttribute="top" secondItem="I31-kq-ALc" secondAttribute="bottom" id="nar-bK-Bwd"/>
+                            <constraint firstItem="I31-kq-ALc" firstAttribute="top" secondItem="ZQa-hU-jRJ" secondAttribute="bottom" constant="8" id="xIs-J2-PRF"/>
+                            <constraint firstItem="Agm-eN-52W" firstAttribute="leading" secondItem="1dR-8G-Upl" secondAttribute="leading" constant="10" id="yhi-Ci-0gt"/>
+                            <constraint firstAttribute="trailing" secondItem="Agm-eN-52W" secondAttribute="trailing" constant="10" id="yto-EL-SmM"/>
                         </constraints>
                     </view>
                 </viewController>

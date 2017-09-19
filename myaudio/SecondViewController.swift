@@ -14,32 +14,35 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     let arr=["1","2","3","4","5"]
     let indexArr = ["A","B","C","D","E"]
-    var currentAlbum = "raw---------"
+    var currentAlbum=Dictionary<String, AnyObject>()
+    var currentItems=[Dictionary<String, AnyObject>]()
     
+    override func loadView() {
+        //print(self.currentItems)
+        super.loadView()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
+        return currentItems.count
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return indexArr[section]
-    }
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return indexArr
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return indexArr[section]
+//    }
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return indexArr
+//    }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //print("once")
-        //let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier:"itemCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! itemCell
-        cell.textLabel?.text = arr[indexPath.row]
+        cell.itemCell.text = Items.content[indexPath.row]["itemName"] as? String
+        cell.tag = indexPath.row
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(arr[indexPath.row])
-        print("current album is at: \(self.currentAlbum)")
+        print("current item is at: \(self.currentItems[indexPath.row]["itemId"] ?? "Something wrong" as AnyObject)")
         
     }
     
