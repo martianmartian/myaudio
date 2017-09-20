@@ -34,7 +34,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.isUserInteractionEnabled=true
         let cellTap:UITapGestureRecognizer
-        cellTap = UITapGestureRecognizer(target:self,action:#selector(SecondViewController.mp3Ctrl))
+        cellTap = UITapGestureRecognizer(target:self,action:#selector(SecondViewController.selectedItem))
         cell.addGestureRecognizer(cellTap)
         
         return cell
@@ -42,28 +42,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("current item is at: \(Models.currentItems[indexPath.row]["itemId"] ?? "Something wrong" as AnyObject)")
     }
-    @objc func mp3Ctrl(){
-        print("clicked, play the video?")
+    @objc func selectedItem(_ gesture:AnyObject){
+        let v = gesture.view!
+        let tag = v.tag
+        let tapped=Models.currentItems[tag]
+        Models.selectedItem(tapped:tapped)
     }
-        //        var player: AVAudioPlayer = AVAudioPlayer() // should be persistent
-    //        //===================================================================
-    //        // For access the downloaded file and again play.
-    //        let documentsDirectoryURL2 =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    //
-    //        let audioUrl = URL(string:"file:///Users/martian2049/Library/Developer/CoreSimulator/Devices/F530E61C-0EE4-4CD4-AF55-14066C02CD9F/data/Containers/Data/Application/728F82C3-A05F-4C5C-990D-DAB83B1153D1/Documents/57d331f9-1820-a982-1674-a513a3193249.mp3" )
-    //        let destinationUrl2 = documentsDirectoryURL2.appendingPathComponent((audioUrl?.lastPathComponent)!)
-    //
-    //        do {
-    //            player = try AVAudioPlayer(contentsOf: destinationUrl2)
-    //            player.prepareToPlay()
-    //            player.play()
-    //        } catch let error {
-    //            print("------------")
-    //            print(error.localizedDescription)
-    //        }
-    
-    
-
     
 }
 

@@ -4,5 +4,4 @@ import Foundation
 
 
 
-var ud=UserDefaults.standard
-print(ud.value(forKey: "items"))
+

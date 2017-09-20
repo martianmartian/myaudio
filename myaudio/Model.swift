@@ -9,15 +9,65 @@
 import Foundation
 import UIKit
 import CoreData
+import AVFoundation
 
 class Models{
     
     static var db = UserDefaults.standard
     static var currentAlbum=Dictionary<String, AnyObject>()
     static var currentItems=[Dictionary<String, AnyObject>]()
+    static var currentPlaying=Dictionary<String, AnyObject>()
+    static var player: AVAudioPlayer = AVAudioPlayer() // should persist
     
 }
 
+extension Models{
+    static func selectedItem(tapped:Dictionary<String, AnyObject>){
+        if Models.currentPlaying["itemId"] == nil{
+            print("nil to begin with---------")
+            Models.currentPlaying = tapped
+            Models.currentPlayingGO()
+        }else if Models.currentPlaying["itemId"] as! String == tapped["itemId"] as! String{
+            Models.currentPlayingPause()
+        }
+        else{
+            print("startin a new item ---------")
+            Models.currentPlayingPause()
+            Models.currentPlaying = tapped
+            Models.currentPlayingGO()
+        }
+    }
+    static func currentPlayingGO(){
+        print("ready to play \(Models.currentPlaying["resourceAddr"] ?? "Mistake" as AnyObject)")
+        
+        let documentsDirectoryURL2 =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let audioUrl = URL(string: Models.currentPlaying["resourceAddr"] as! String)
+        let destinationUrl2 = documentsDirectoryURL2.appendingPathComponent((audioUrl?.lastPathComponent)!)
+        
+        do {
+            Models.player = try AVAudioPlayer(contentsOf: destinationUrl2)
+            Models.player.prepareToPlay()
+            Models.player.play()
+        } catch let error {
+            print("------------")
+            print(error.localizedDescription)
+        }
+    }
+    static func currentPlayingPause(){
+        //print("Paused \(Models.currentPlaying["resourceAddr"] ?? "Mistake" as AnyObject)")
+        if Models.player.isPlaying{
+            print("Pause---------")
+            Models.player.pause()
+        }else{
+            print("Pause->Play---------")
+            Models.player.play()
+        }
+    }
+    
+    
+    
+
+}
 
 extension Models{
     

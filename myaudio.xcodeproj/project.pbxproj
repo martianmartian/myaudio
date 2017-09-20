@@ -42,7 +42,7 @@
 		4324174E1F6FEB5200367B0D /* albumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = albumCell.swift; sourceTree = "<group>"; };
 		432417501F6FF9A400367B0D /* itemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemCell.swift; sourceTree = "<group>"; };
 		432417521F70053700367B0D /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
-		432B2B0F1F5E336300F4AE01 /* test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test.playground; sourceTree = "<group>"; };
+		432B2B0F1F5E336300F4AE01 /* test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		432B2B101F5E5B7000F4AE01 /* test2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test2.playground; sourceTree = "<group>"; };
 		432B2B111F5E5E4B00F4AE01 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		432FDAEE1F58F41A004483FC /* funhouse.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = funhouse.playground; sourceTree = "<group>"; };
