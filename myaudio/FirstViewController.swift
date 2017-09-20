@@ -100,6 +100,8 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         HttpReq.getFile(obj:obj){data in
             
+            //Mark: all three asynch here should have their ways of detecting already downloaded files
+            //Checked
             Albums.update(data:data["albums"] as! [Dictionary<String, AnyObject>])
             Items.update(data:data["items"] as! [Dictionary<String, AnyObject>])
             DispatchQueue.main.async {

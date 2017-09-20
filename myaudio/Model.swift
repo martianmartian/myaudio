@@ -21,10 +21,7 @@ class Models{
 
 extension Models{
     
-    static func fetchXById(){
-        
-        
-    }
+    static func fetchXById(){}
 
     static func updateAllXdb(data:[Dictionary<String, AnyObject>],entity:String,ifDup:(_ dic:Dictionary<String, AnyObject>)->Bool){
         // is this synch or asynch????????????
@@ -66,10 +63,13 @@ extension Models{
     
     static func removeAllX(entity:String){
         // mascer, be carefull.
-        // include removing of mp3 files
-        
+//        add removing of mp3 files here
         Models.db.removeObject(forKey:entity)
         print("after removing all \(entity), Models.fetchAllXdb(entity:entity) shows: ", Models.fetchAllXdb(entity:entity))
+    }
+    static func removeOneMP3(addr:String){
+        
+        
     }
 
 }

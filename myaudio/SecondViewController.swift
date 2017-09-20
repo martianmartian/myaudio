@@ -31,11 +31,19 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! itemCell
         cell.itemCell.text = Models.currentItems[indexPath.row]["itemName"] as? String
         cell.tag = indexPath.row
+        
+        cell.isUserInteractionEnabled=true
+        let cellTap:UITapGestureRecognizer
+        cellTap = UITapGestureRecognizer(target:self,action:#selector(SecondViewController.mp3Ctrl))
+        cell.addGestureRecognizer(cellTap)
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("current item is at: \(Models.currentItems[indexPath.row]["itemId"] ?? "Something wrong" as AnyObject)")
-        
+    }
+    @objc func mp3Ctrl(){
+        print("clicked, play the video?")
     }
         //        var player: AVAudioPlayer = AVAudioPlayer() // should be persistent
     //        //===================================================================
