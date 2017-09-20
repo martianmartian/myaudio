@@ -19,10 +19,15 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    
+    @IBAction func swipeToSecond(_ sender: UISwipeGestureRecognizer) {
+        print("doesn't do anything; but LEAVE IT HERE")
+    }
     override func loadView() {
         print("ok, stop loadView(), once---------")
-        Models.removeAllX(entity: "albums")
-        Models.removeAllX(entity: "items")
+        //print(Models.fetchAllXdb(entity: "items"))
+//        Models.removeAllX(entity: "albums")
+//        Models.removeAllX(entity: "items")
         Albums.superInit{
             super.loadView()
         }
@@ -31,9 +36,8 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        //self.view
+
     }
-    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -49,6 +53,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let albumCell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! albumCell
         albumCell.albumImage.image = UIImage(named: arr[indexPath.row])
+        albumCell.imageLabel.text = arr[indexPath.row]
         
         albumCell.isUserInteractionEnabled=true
         let CellTap:UITapGestureRecognizer
@@ -66,19 +71,19 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         return albumCell
     }
-    func goToView2(_ gesture:AnyObject){ //print("go to second view here")
+    @objc func goToView2(_ gesture:AnyObject){ //print("go to second view here")
         let v = gesture.view!
         let tag = v.tag
         print("Going to album: \(Albums.content[tag]["albumid"] ?? "Something wrong" as AnyObject)")
         
+        Models.currentAlbum = Albums.content[tag]
+        Models.currentItems = Items.fetchItemsOfAlbum(albumid: Albums.content[tag]["albumid"] as! String)
+        
         let storyBoard = UIStoryboard(name:"Main", bundle:nil)
         let secondVC = storyBoard.instantiateViewController(withIdentifier: "SecondViewController") as! SecondViewController
-        secondVC.currentAlbum = Albums.content[tag]
-        secondVC.currentItems = Items.fetchItemsOfAlbum(albumid: Albums.content[tag]["albumid"] as! String)
-        self.present(secondVC, animated: true)
-        
+        self.present(secondVC, animated: false, completion: nil)
     }
-    func prepReq(){
+    @objc func prepReq(){
         
         let alert = UIAlertController(title: "For Sync", message: "Enter yoru code", preferredStyle: .alert)
         alert.addTextField { (textField) in textField.text = "343"}
@@ -88,7 +93,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             guard let code = textField?.text else {print("invalide code");return}
             self.reqFile(obj:["code":code as AnyObject])
         }))
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: false, completion: nil)
     }
     
     func reqFile(obj:Dictionary<String, AnyObject>){
@@ -99,10 +104,9 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             Items.update(data:data["items"] as! [Dictionary<String, AnyObject>])
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                Items.downloadAllNew(items:data["items"]  as! [Dictionary<String, AnyObject>])
             }
-            
         }
-
     }
     
 }

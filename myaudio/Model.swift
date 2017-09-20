@@ -13,6 +13,8 @@ import CoreData
 class Models{
     
     static var db = UserDefaults.standard
+    static var currentAlbum=Dictionary<String, AnyObject>()
+    static var currentItems=[Dictionary<String, AnyObject>]()
     
 }
 
@@ -64,10 +66,10 @@ extension Models{
     
     static func removeAllX(entity:String){
         // mascer, be carefull.
+        // include removing of mp3 files
         
         Models.db.removeObject(forKey:entity)
         print("after removing all \(entity), Models.fetchAllXdb(entity:entity) shows: ", Models.fetchAllXdb(entity:entity))
-        
     }
 
 }

@@ -12,45 +12,32 @@ import AVFoundation
 
 class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    let arr=["1","2","3","4","5"]
-    let indexArr = ["A","B","C","D","E"]
-    var currentAlbum=Dictionary<String, AnyObject>()
-    var currentItems=[Dictionary<String, AnyObject>]()
+    @IBOutlet weak var tableView: UITableView!
+    @IBAction func swipeToFirst(_ sender: UISwipeGestureRecognizer){}
     
     override func loadView() {
-        //print(self.currentItems)
         super.loadView()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.alwaysBounceVertical = false
         // Do any additional setup after loading the view, typically from a nib.
-        
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentItems.count
+        return Models.currentItems.count
     }
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return indexArr[section]
-//    }
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return indexArr
-//    }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! itemCell
-        cell.itemCell.text = Items.content[indexPath.row]["itemName"] as? String
+        cell.itemCell.text = Models.currentItems[indexPath.row]["itemName"] as? String
         cell.tag = indexPath.row
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("current item is at: \(self.currentItems[indexPath.row]["itemId"] ?? "Something wrong" as AnyObject)")
+        print("current item is at: \(Models.currentItems[indexPath.row]["itemId"] ?? "Something wrong" as AnyObject)")
         
     }
-    
-    func wtf(){
-        //tableView.re
-    }
-    //        var player: AVAudioPlayer = AVAudioPlayer() // should be persistent
+        //        var player: AVAudioPlayer = AVAudioPlayer() // should be persistent
     //        //===================================================================
     //        // For access the downloaded file and again play.
     //        let documentsDirectoryURL2 =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

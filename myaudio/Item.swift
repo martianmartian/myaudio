@@ -45,23 +45,23 @@ import Foundation
 //        // pre-download synch
 //        //print(content)
 //
-////        for (i,item) in content.enumerated(){
-////            var each = item
-////            let ifNew = each["newOrNot"] as! String
-////            if ifNew == "0" {return}
-////            HttpReq.getMP3(id: each["itemId"] as! String){localURL in
-////                each["resourceAddr"] = localURL.absoluteString as AnyObject
-////                each["newOrNot"]="0" as AnyObject
-////                self.content[i] = each
-////                
-////                // potentially failed setting net contents. be aware
-//////                print(self.content[i])
-//////                print("----------=-=-=-")
-//////                print(self.content[i])
-//////                print("=-=-=-----------")
-//////                print(self.content)
-////            }
-////        }
+//        for (i,item) in content.enumerated(){
+//            var each = item
+//            let ifNew = each["newOrNot"] as! String
+//            if ifNew == "0" {return}
+//            HttpReq.getMP3(id: each["itemId"] as! String){localURL in
+//                each["resourceAddr"] = localURL.absoluteString as AnyObject
+//                each["newOrNot"]="0" as AnyObject
+//                self.content[i] = each
+//
+//                // potentially failed setting net contents. be aware
+////                print(self.content[i])
+////                print("----------=-=-=-")
+////                print(self.content[i])
+////                print("=-=-=-----------")
+////                print(self.content)
+//            }
+//        }
 //
 //    }
 //    
@@ -111,6 +111,30 @@ class Items{
         }
         return album
     }
+    static func downloadOne(item:Dictionary<String,AnyObject>,completion:@escaping (Dictionary<String,AnyObject>)->()){
+        var item = item
+        HttpReq.getMP3(id: item["itemId"] as! String){localURL in
+            item["resourceAddr"] = localURL.absoluteString as AnyObject
+            item["newOrNot"]="0" as AnyObject
+            print("fetched mp3 files to: \(item["resourceAddr"] ?? "Fucked" as AnyObject)")
+            completion(item)
+            
+        }
+    }
+    static func downloadAllNew(items:[Dictionary<String,AnyObject>]){
+        var items = items
+        for (i,item) in items.enumerated(){
+            var item = item
+            if item["newOrNot"] as! String == "0" {return}
+            Items.downloadOne(item: item){newItem in
+                items[i] = newItem
+                Items.update(data: items)
+                print("\ndownloaded mp3 for item \(item["itemName"] ?? "Error" as AnyObject)")
+                print(newItem["resourceAddr"] as! String)
+            }
+        }
+    }
+
     
 }
 

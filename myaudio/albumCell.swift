@@ -14,6 +14,9 @@ class albumCell: UICollectionViewCell {
     
     @IBOutlet weak var albumImage: UIImageView!
     
+    @IBOutlet weak var imageLabel: UILabel!
+    
+    
     var album=Dictionary<String, AnyObject>()
     
 }
