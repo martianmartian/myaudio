@@ -32,7 +32,7 @@ extension Models{
         for one in data{
             var eachdic = one
             
-            if ifDup(one) {continue}
+            if ifDup(one) {print("updateAllXdb got duped \(entity) ---");continue}
             
             eachdic["createdAt"] = NSDate()
 
@@ -57,7 +57,7 @@ extension Models{
     static func fetchAllXdb(entity:String) -> [Dictionary<String, AnyObject>]{
         
         guard let stuff = Models.db.value(forKey: entity)
-            else {print("fetchAllXdb went wrong x-x-x"); return [Dictionary<String, AnyObject>]()} // nil if empty
+            else {print("fetchAllXdb got nill x-x-x"); return [Dictionary<String, AnyObject>]()} // nil if empty
         
         return stuff as! [Dictionary<String, AnyObject>]
     }

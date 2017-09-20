@@ -4,13 +4,5 @@ import Foundation
 
 
 
-class Dog{
-    static var what:String{
-        print("wwwljljljl")
-        return "www"
-    }
-}
-
-
-print(Dog.what)
-print(Dog.what)
+var ud=UserDefaults.standard
+print(ud.value(forKey: "items"))

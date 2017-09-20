@@ -17,13 +17,12 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     let arr:[String]=["0.png","1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"]
     
-    //var refresher:UIRefreshControl!
-    //private let refreshControl = UIRefreshControl()
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func loadView() {
         print("ok, stop loadView(), once---------")
-//        Models.removeAllX(entity: "albums")
-//        Models.removeAllX(entity: "items")
+        Models.removeAllX(entity: "albums")
+        Models.removeAllX(entity: "items")
         Albums.superInit{
             super.loadView()
         }
@@ -46,9 +45,6 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Albums.content.count+1
     }
-//    func reloadSections(_ sections: IndexSet, with animation: UITableViewRowAnimation){
-//        print("Hoho, a puzzle solved")
-//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let albumCell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! albumCell
@@ -101,7 +97,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             Albums.update(data:data["albums"] as! [Dictionary<String, AnyObject>])
             Items.update(data:data["items"] as! [Dictionary<String, AnyObject>])
-//            self.reloadSections([1], with: UITableViewRowAnimation.automatic)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
         }
 
     }

@@ -83,25 +83,25 @@ class Items{
     }
     
     static func superInit(completion:()->()){
-        guard let stuff = Models.db.value(forKey: Items.entity) else {print("Items.superInit went wrong x-x-x"); completion(); return}
+        guard let stuff = Models.db.value(forKey: Items.entity) else {print("Items.superInit got nil x-x-x"); completion(); return}
         Items.content = stuff as! [Dictionary<String, AnyObject>]
         
         print("superIinted Items: ", Items.content.count)
         completion()
     }
     static func fetchDB() -> [Dictionary<String, AnyObject>]{
-        guard let stuff = Models.db.value(forKey: Items.entity) else {print("Items.fetchDB error x-x-x"); return []}
+        guard let stuff = Models.db.value(forKey: Items.entity) else {print("Items.fetchDB got nil x-x-x"); return []}
         return stuff as! [Dictionary<String, AnyObject>]
     }
     static func update(data:[Dictionary<String, AnyObject>]){
         
-        Items.content = data
-        
         Models.updateAllXdb(data:data, entity: Items.entity){dic in // check for dups
-            let dic = dic as! NSDictionary
+            let dic = dic
             let id = dic[Items.jsonkey] as! String
             return Items.ids.contains(id)
         }
+        Items.content = Models.fetchAllXdb(entity:Items.entity)
+        
     }
     static func fetchItemsOfAlbum(albumid:String)->[Dictionary<String, AnyObject>]{
         var album = [Dictionary<String,AnyObject>]()

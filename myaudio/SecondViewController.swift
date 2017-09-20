@@ -24,6 +24,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,7 +47,9 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    
+    func wtf(){
+        //tableView.re
+    }
     //        var player: AVAudioPlayer = AVAudioPlayer() // should be persistent
     //        //===================================================================
     //        // For access the downloaded file and again play.
