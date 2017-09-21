@@ -15,6 +15,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBAction func swipeToFirst(_ sender: UISwipeGestureRecognizer){}
     
+    
     override func loadView() {
         super.loadView()
     }
@@ -31,7 +32,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! itemCell
         cell.itemCell.text = Models.currentItems[indexPath.row]["itemName"] as? String
         cell.tag = indexPath.row
-        
+        //print(cell.tag)
         cell.isUserInteractionEnabled=true
         let cellTap:UITapGestureRecognizer
         cellTap = UITapGestureRecognizer(target:self,action:#selector(SecondViewController.selectedItem))
@@ -47,6 +48,17 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let tag = v.tag
         let tapped=Models.currentItems[tag]
         Models.selectedItem(tapped:tapped)
+    }
+    
+    
+    @IBAction func tapGoRightButton(_ sender: UIButton) {
+        Models.goNextItem()
+    }
+    @IBAction func tapGoLeftButton(_ sender: UIButton) {
+        Models.goPrevItem()
+    }
+    @IBAction func tapPlayButton(_ sender: UIButton) {
+        Models.tapPlayButton()
     }
     
 }

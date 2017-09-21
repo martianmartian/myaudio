@@ -45,7 +45,7 @@
 		432B2B0F1F5E336300F4AE01 /* test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		432B2B101F5E5B7000F4AE01 /* test2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test2.playground; sourceTree = "<group>"; };
 		432B2B111F5E5E4B00F4AE01 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		432FDAEE1F58F41A004483FC /* funhouse.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = funhouse.playground; sourceTree = "<group>"; };
+		432FDAEE1F58F41A004483FC /* funhouse.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = funhouse.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		432FDAEF1F591413004483FC /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		433783161F662B3D00C0718D /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		433783181F662B4900C0718D /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -86,21 +86,34 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
-		433783141F662AE500C0718D /* Model */ = {
+		433783141F662AE500C0718D /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				43C0B4361F625ACB00B2AFA2 /* Model.swift */,
 				433783181F662B4900C0718D /* Item.swift */,
 				433783161F662B3D00C0718D /* Album.swift */,
 			);
-			name = Model;
+			name = Models;
 			sourceTree = "<group>";
 		};
-		435B21BF1F6B6D60008D73A2 /* View */ = {
+		435B21BF1F6B6D60008D73A2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = View;
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		43A1DFDD1F725D450000D50E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				43A6584B1F5648BC009D9BE9 /* Assets.xcassets */,
+				43A658501F5648BC009D9BE9 /* Info.plist */,
+				43A658481F5648BC009D9BE9 /* myaudio.xcdatamodeld */,
+				432B2B101F5E5B7000F4AE01 /* test2.playground */,
+				432B2B0F1F5E336300F4AE01 /* test.playground */,
+				432FDAEE1F58F41A004483FC /* funhouse.playground */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 		43A658351F5648BC009D9BE9 = {
@@ -122,23 +135,18 @@
 		43A658401F5648BC009D9BE9 /* myaudio */ = {
 			isa = PBXGroup;
 			children = (
-				435B21BF1F6B6D60008D73A2 /* View */,
+				435B21BF1F6B6D60008D73A2 /* Controllers */,
 				43A658411F5648BC009D9BE9 /* AppDelegate.swift */,
 				43A658431F5648BC009D9BE9 /* FirstViewController.swift */,
 				4324174E1F6FEB5200367B0D /* albumCell.swift */,
 				4324173D1F6FC1C300367B0D /* SecondViewController.swift */,
 				432417501F6FF9A400367B0D /* itemCell.swift */,
-				433783141F662AE500C0718D /* Model */,
+				433783141F662AE500C0718D /* Models */,
 				43C0B4381F627AC400B2AFA2 /* Modules */,
 				432417411F6FC22B00367B0D /* Assets */,
 				43A658451F5648BC009D9BE9 /* Main.storyboard */,
-				43A6584B1F5648BC009D9BE9 /* Assets.xcassets */,
 				43A6584D1F5648BC009D9BE9 /* LaunchScreen.storyboard */,
-				43A658501F5648BC009D9BE9 /* Info.plist */,
-				43A658481F5648BC009D9BE9 /* myaudio.xcdatamodeld */,
-				432B2B101F5E5B7000F4AE01 /* test2.playground */,
-				432B2B0F1F5E336300F4AE01 /* test.playground */,
-				432FDAEE1F58F41A004483FC /* funhouse.playground */,
+				43A1DFDD1F725D450000D50E /* Support */,
 			);
 			path = myaudio;
 			sourceTree = "<group>";

@@ -14,29 +14,23 @@ import AVFoundation
 class Models{
     
     static var db = UserDefaults.standard
+    static var player: AVAudioPlayer = AVAudioPlayer() // should persist
+    
     static var currentAlbum=Dictionary<String, AnyObject>()
     static var currentItems=[Dictionary<String, AnyObject>]()
     static var currentPlaying=Dictionary<String, AnyObject>()
-    static var player: AVAudioPlayer = AVAudioPlayer() // should persist
+    static var currentPlayingIndex = 0{
+        didSet{
+            if Models.currentItems.count != 0 {Models.currentPlaying = Models.currentItems[Models.currentPlayingIndex]}
+            
+        }
+    }
     
 }
 
 extension Models{
-    static func selectedItem(tapped:Dictionary<String, AnyObject>){
-        if Models.currentPlaying["itemId"] == nil{
-            print("nil to begin with---------")
-            Models.currentPlaying = tapped
-            Models.currentPlayingGO()
-        }else if Models.currentPlaying["itemId"] as! String == tapped["itemId"] as! String{
-            Models.currentPlayingPause()
-        }
-        else{
-            print("startin a new item ---------")
-            Models.currentPlayingPause()
-            Models.currentPlaying = tapped
-            Models.currentPlayingGO()
-        }
-    }
+    //Basic play control
+    
     static func currentPlayingGO(){
         print("ready to play \(Models.currentPlaying["resourceAddr"] ?? "Mistake" as AnyObject)")
         
@@ -53,7 +47,7 @@ extension Models{
             print(error.localizedDescription)
         }
     }
-    static func currentPlayingPause(){
+    static func togglePlay(){
         //print("Paused \(Models.currentPlaying["resourceAddr"] ?? "Mistake" as AnyObject)")
         if Models.player.isPlaying{
             print("Pause---------")
@@ -63,14 +57,49 @@ extension Models{
             Models.player.play()
         }
     }
-    
-    
-    
+}
+
+extension Models{
+    //Higher level play control
+    static func goNextItem(){
+        if Models.currentItems.count==0 {print("tapGoRightButton, but no items"); return}
+        //Models.currentItems.next(<#T##index: Int##Int#>)
+    }
+    static func goPrevItem(){
+        if Models.currentItems.count==0 {print("tapGoLeftButton, but no items"); return}
+        
+    }
+    static func tapPlayButton(){
+        if Models.currentItems.count==0 {print("tapPlayButton, but no items"); return}
+        
+        if Models.currentPlaying["itemId"] == nil{
+            print("nil to begin with---------")
+            Models.currentPlaying = Models.currentItems[0]
+            Models.currentPlayingGO()
+        }else {
+            Models.togglePlay()
+        }
+    }
+    static func selectedItem(tapped:Dictionary<String, AnyObject>){
+        if Models.currentPlaying["itemId"] == nil{
+            print("nil to begin with---------")
+            Models.currentPlaying = tapped
+            Models.currentPlayingGO()
+        }else if Models.currentPlaying["itemId"] as! String == tapped["itemId"] as! String{
+            Models.togglePlay()
+        }
+        else{
+            print("startin a new item ---------")
+            Models.togglePlay()
+            Models.currentPlaying = tapped
+            Models.currentPlayingGO()
+        }
+    }
 
 }
 
 extension Models{
-    
+    // Model data methods
     static func fetchXById(){}
 
     static func updateAllXdb(data:[Dictionary<String, AnyObject>],entity:String,ifDup:(_ dic:Dictionary<String, AnyObject>)->Bool){

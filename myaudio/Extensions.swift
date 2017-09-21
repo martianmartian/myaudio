@@ -8,6 +8,18 @@
 
 import Foundation
 
+extension Array{
+    func next(_ index: Int) -> (Int?, Element?){
+        if self.count==0 {return (nil, nil)}
+        var nextIndex : Int
+        if index<0{nextIndex = index+self.count}
+        else if index>=self.count-1 {nextIndex = index+1-self.count}
+        else{nextIndex = index+1}
+        
+        return (nextIndex, self[nextIndex])
+    }
+}
+
 extension URL {
     static func help(_ which:String?=nil){
         if which == "extension"{
